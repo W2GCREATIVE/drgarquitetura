@@ -540,11 +540,13 @@ function Index() {
                 </div>
                 <fieldset className="project-options">
                   <legend>Tipo de projeto</legend>
-                  {[
-                    ["casa", "Construir uma casa", "Projeto desde o terreno"],
-                    ["apto_novo", "Apartamento novo", "Finalizar e morar"],
-                    ["reforma", "Reformar meu imóvel", "Transformar o que já existe"],
-                  ].map(([value, title, sub]) => (
+                  {(
+                    [
+                      ["casa", "Construir uma casa", "Projeto desde o terreno"],
+                      ["apto_novo", "Apartamento novo", "Finalizar e morar"],
+                      ["reforma", "Reformar meu imóvel", "Transformar o que já existe"],
+                    ] as [string, string, string][]
+                  ).map(([value, title, sub]) => (
                     <label className="project-option" key={value}>
                       <input
                         type="radio"
@@ -597,11 +599,13 @@ function Index() {
                 </div>
                 <fieldset className="standard-options">
                   <legend>Padrão de acabamento</legend>
-                  {[
-                    ["normal", "Essencial"],
-                    ["alto", "Alto padrão"],
-                    ["luxo", "Exclusivo"],
-                  ].map(([value, label]) => (
+                  {(
+                    [
+                      ["normal", "Essencial"],
+                      ["alto", "Alto padrão"],
+                      ["luxo", "Exclusivo"],
+                    ] as [string, string][]
+                  ).map(([value, label]) => (
                     <label key={value}>
                       <input
                         type="radio"
