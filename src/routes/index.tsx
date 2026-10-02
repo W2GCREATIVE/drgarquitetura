@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import "../drg.css";
 import { useEffect, useRef, useState } from "react";
 import {
   config,
