@@ -40,7 +40,7 @@ export interface Estimate {
 
 export function validate(input: unknown): ProjectInput {
   if (!input || typeof input !== "object" || Array.isArray(input)) throw new Error("Informe os dados do projeto.");
-  const i = input as Record<string, unknown>;
+  const i = input as Partial<ProjectInput>;
   if (typeof i.type !== "string" || !(i.type in config.types)) throw new Error("Escolha um tipo de projeto válido.");
   if (typeof i.standard !== "string" || !(i.standard in config.standards)) throw new Error("Escolha um padrão de acabamento válido.");
   if (typeof i.area !== "number" || !Number.isFinite(i.area) || i.area < config.areaLimits[0] || i.area > config.areaLimits[1])
@@ -50,7 +50,7 @@ export function validate(input: unknown): ProjectInput {
   return {
     type: i.type,
     standard: i.standard,
-    area: Math.round((i.area as number) * 100) / 100,
+    area: Math.round(i.area * 100) / 100,
     city: i.city as string,
     management: i.management,
   };
@@ -58,10 +58,10 @@ export function validate(input: unknown): ProjectInput {
 
 export function calculate(raw: unknown): Estimate {
   const input = validate(raw);
-  const unit = config.workPerM2[input.type][input.standard];
+  const unit = config.workPerM2[input.type]![input.standard]!;
   const work: [number, number] = [Math.round(unit[0] * input.area), Math.round(unit[1] * input.area)];
-  const pm = config.projectPerM2[input.type];
-  const factor = config.projectFactor[input.standard];
+  const pm = config.projectPerM2[input.type]!;
+  const factor = config.projectFactor[input.standard]!;
   const project: [number, number] = [
     Math.round(Math.max(config.projectMinimum[0], input.area * pm[0] * factor)),
     Math.round(Math.max(config.projectMinimum[1], input.area * pm[1] * factor)),
