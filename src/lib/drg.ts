@@ -4,9 +4,9 @@ export const config = {
   brand: "DRG Arquitetura",
   architect: "Douglas Gerst",
   whatsapp: "5547988188417",
-  privacyVersion: "apresentacao-2026-10-02",
+  privacyVersion: "apresentacao-2026-10-06",
   estimateVersion: "demonstracao-2026-10-02",
-  cities: ["Itajaí", "Balneário Camboriú", "Itapema", "Camboriú", "Navegantes", "Outra cidade"],
+  cities: ["Itajaí", "Balneário Camboriú", "Camboriú", "Outra cidade"],
   types: { casa: "Construir uma casa", apto_novo: "Apartamento novo", reforma: "Reformar imóvel" } as Record<string, string>,
   standards: { normal: "Essencial", alto: "Alto padrão", luxo: "Exclusivo" } as Record<string, string>,
   workPerM2: {
@@ -75,10 +75,10 @@ export function calculate(raw: unknown): Estimate {
 
 export function inclusions(type: string): string {
   return type === "casa"
-    ? "Considera uma faixa para obra, projeto arquitetônico e gestão opcional. Não inclui terreno, projetos complementares, taxas, piscina, muros ou mobiliário solto."
+    ? "Considera uma faixa para obra e projeto arquitetônico. Não inclui terreno, projetos complementares, taxas, piscina, muros ou mobiliário solto."
     : type === "reforma"
-      ? "Considera uma reforma ampla com acabamentos e marcenaria, projeto de interiores e gestão opcional. Não inclui mobiliário solto, eletrodomésticos, taxas ou problemas ocultos da edificação."
-      : "Considera acabamentos e marcenaria de apartamento entregue no contrapiso, projeto de interiores e gestão opcional. Não inclui mobiliário solto, eletrodomésticos ou taxas do condomínio.";
+      ? "Considera uma reforma ampla com acabamentos e marcenaria e projeto de interiores. Não inclui mobiliário solto, eletrodomésticos, taxas ou problemas ocultos da edificação."
+      : "Considera acabamentos e marcenaria de apartamento entregue no contrapiso e projeto de interiores. Não inclui mobiliário solto, eletrodomésticos ou taxas do condomínio.";
 }
 
 export const formatBRL = (value: number) =>
