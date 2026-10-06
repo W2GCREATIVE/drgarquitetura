@@ -14,7 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      funnel_events: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      leads: {
+        Row: {
+          created_at: string
+          email: string | null
+          estimate: Json
+          id: string
+          moment: string | null
+          name: string
+          phone: string
+          privacy_version: string
+          project: Json
+          source: Json
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          estimate: Json
+          id?: string
+          moment?: string | null
+          name: string
+          phone: string
+          privacy_version: string
+          project: Json
+          source?: Json
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          estimate?: Json
+          id?: string
+          moment?: string | null
+          name?: string
+          phone?: string
+          privacy_version?: string
+          project?: Json
+          source?: Json
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
