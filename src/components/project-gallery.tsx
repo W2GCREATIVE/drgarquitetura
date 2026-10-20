@@ -9,6 +9,13 @@ import mh5 from "@/assets/MH5.jpg.asset.json";
 import rbc2 from "@/assets/RBC2.jpg.asset.json";
 import rbc3 from "@/assets/RBC3.png.asset.json";
 import rbc4 from "@/assets/RBC4.jpg.asset.json";
+import aereaCaledonia1 from "@/assets/Aerea_caledonia_1.jpg.asset.json";
+import aereaCaledonia2 from "@/assets/Aerea_2_caledonia_1.jpg.asset.json";
+import ilhaBela from "@/assets/IB.jpg.asset.json";
+import ilhaBelaAntes from "@/assets/IB_antes.jpg.asset.json";
+import ilhaBelaDepois from "@/assets/IB_depois.jpg.asset.json";
+import fachadaBs from "@/assets/Fachada_BS.jpg.asset.json";
+import fachadaParigi from "@/assets/fachada_para_predio_-_Parigi.jpg.asset.json";
 import "./project-gallery.css";
 
 const photos = [
@@ -20,6 +27,13 @@ const photos = [
   { url: rbc2.url, alt: "Ilha de cozinha com cooktop e plantas" },
   { url: rbc3.url, alt: "Quarto com luz natural e cabeceira estofada" },
   { url: rbc4.url, alt: "Cozinha e sala de jantar integradas" },
+  { url: aereaCaledonia1.url, alt: "Vista aérea de casa com piscina, deck e área de lazer" },
+  { url: aereaCaledonia2.url, alt: "Fachada de casa térrea com volumes brancos e revestimento geométrico" },
+  { url: ilhaBelaAntes.url, alt: "Edifício residencial de quatro pavimentos antes da renovação da fachada" },
+  { url: ilhaBelaDepois.url, alt: "Edifício residencial de quatro pavimentos após a renovação da fachada" },
+  { url: ilhaBela.url, alt: "Entrada de edifício residencial com pilares em tom terracota" },
+  { url: fachadaBs.url, alt: "Fachada de prédio contemporâneo de três pavimentos com esquadrias escuras" },
+  { url: fachadaParigi.url, alt: "Projeto de fachada para o edifício Parigi em iluminação de entardecer" },
 ];
 
 export function ProjectGallery() {
