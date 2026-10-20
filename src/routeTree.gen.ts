@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiEventsRouteImport } from './routes/api/events'
+import { Route as ApiHealthRouteImport } from './routes/api/health'
 import { Route as ApiLeadsRouteImport } from './routes/api/leads'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const ApiEventsRoute = ApiEventsRouteImport.update({
   path: '/api/events',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiHealthRoute = ApiHealthRouteImport.update({
+  id: '/api/health',
+  path: '/api/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiLeadsRoute = ApiLeadsRouteImport.update({
   id: '/api/leads',
   path: '/api/leads',
@@ -32,30 +38,34 @@ const ApiLeadsRoute = ApiLeadsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api/events': typeof ApiEventsRoute
+  '/api/health': typeof ApiHealthRoute
   '/api/leads': typeof ApiLeadsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/events': typeof ApiEventsRoute
+  '/api/health': typeof ApiHealthRoute
   '/api/leads': typeof ApiLeadsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/api/events': typeof ApiEventsRoute
+  '/api/health': typeof ApiHealthRoute
   '/api/leads': typeof ApiLeadsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/events' | '/api/leads'
+  fullPaths: '/' | '/api/events' | '/api/health' | '/api/leads'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/events' | '/api/leads'
-  id: '__root__' | '/' | '/api/events' | '/api/leads'
+  to: '/' | '/api/events' | '/api/health' | '/api/leads'
+  id: '__root__' | '/' | '/api/events' | '/api/health' | '/api/leads'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiEventsRoute: typeof ApiEventsRoute
+  ApiHealthRoute: typeof ApiHealthRoute
   ApiLeadsRoute: typeof ApiLeadsRoute
 }
 
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiEventsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/health': {
+      id: '/api/health'
+      path: '/api/health'
+      fullPath: '/api/health'
+      preLoaderRoute: typeof ApiHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/leads': {
       id: '/api/leads'
       path: '/api/leads'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiEventsRoute: ApiEventsRoute,
+  ApiHealthRoute: ApiHealthRoute,
   ApiLeadsRoute: ApiLeadsRoute,
 }
 export const routeTree = rootRouteImport
