@@ -1,0 +1,83 @@
+{
+  "source": "Site_DRG_-_Final.zip",
+  "capabilities": [
+    {
+      "capability": "Static page, styles and scripts",
+      "source": "ZIP",
+      "outcome": "update",
+      "status": "verified",
+      "next_action": null
+    },
+    {
+      "capability": "Images and font",
+      "source": "ZIP",
+      "outcome": "update",
+      "status": "verified",
+      "next_action": null
+    },
+    {
+      "capability": "Estimate rules",
+      "source": "ZIP calculator",
+      "outcome": "update",
+      "status": "verified",
+      "next_action": null
+    },
+    {
+      "capability": "Schema and existing records",
+      "source": "Existing Lovable Cloud",
+      "outcome": "preserve",
+      "status": "verified",
+      "next_action": null
+    },
+    {
+      "capability": "Auth identities and authorization",
+      "source": "No accounts in static source; private Cloud tables",
+      "outcome": "preserve",
+      "status": "verified",
+      "next_action": null
+    },
+    {
+      "capability": "Lead and event public endpoints",
+      "source": "ZIP backend and existing Cloud routes",
+      "outcome": "preserve",
+      "status": "verified",
+      "next_action": null
+    },
+    {
+      "capability": "WhatsApp, Instagram and email",
+      "source": "ZIP links",
+      "outcome": "preserve",
+      "status": "verified",
+      "next_action": null
+    },
+    {
+      "capability": "Callbacks, webhooks, schedules and secrets",
+      "source": "Source inspection",
+      "outcome": "not applicable",
+      "status": "verified",
+      "next_action": null
+    },
+    {
+      "capability": "Cutover",
+      "source": "Published site",
+      "outcome": "await publication",
+      "status": "pending",
+      "next_action": "Publish updated preview when requested"
+    },
+    {
+      "capability": "Permanent badge removal",
+      "source": "User preference",
+      "outcome": "preserve",
+      "status": "verified",
+      "next_action": null
+    },
+    {
+      "capability": "Source rate limits and server-wide CSP",
+      "source": "ZIP Node server",
+      "outcome": "platform adaptation",
+      "status": "blocked",
+      "next_action": "Platform rate limiting unavailable; Node CSP is incompatible with preview scripts and embedded preview. Request-size/origin validation and private table access retained."
+    }
+  ],
+  "verification": "40 tests passed; images render; browser contact flow saved and read back, then removed; original 8 leads preserved; no runtime errors."
+}

@@ -11,3 +11,4 @@
 
 - The DRG page renders the original static HTML (src/drg-body.html) and runs the original scripts in src/drg-legacy/ — why: site updates arrive as static ZIPs and can be swapped in with minimal porting.
 - Leads and funnel events are stored via /api/leads and /api/events server routes using the admin client; tables have no public policies — why: the result is only revealed after the lead is saved server-side.
+- ZIP calculator updates must synchronize src/lib/drg.ts and src/drg-legacy/config.js and calculator.js, with parity tests — why: the server computes the persisted estimate while the browser prepares the preview.

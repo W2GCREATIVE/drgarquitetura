@@ -6,20 +6,20 @@ import configJs from "../drg-legacy/config.js?raw";
 import calculatorJs from "../drg-legacy/calculator.js?raw";
 import appJs from "../drg-legacy/app.js?raw";
 
-const title = "Arquiteto em Itajaí, Camboriú e Balneário Camboriú | DRG Arquitetura";
+const title = "Arquitetura de interiores em Itajaí e região | DRG Arquitetura";
 const description =
-  "DRG Arquitetura: projetos de arquitetura, interiores e acompanhamento em Itajaí, Camboriú e Balneário Camboriú. Planeje seu investimento e converse com Douglas pelo WhatsApp.";
+  "Projetos de interiores para apartamentos, arquitetura residencial e reformas em Itajaí, Camboriú e Balneário Camboriú. Converse com o arquiteto Douglas Gerst.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title },
       { name: "description", content: description },
-      { name: "theme-color", content: "#202822" },
+      { name: "theme-color", content: "#41413e" },
       { property: "og:type", content: "website" },
       { property: "og:locale", content: "pt_BR" },
-      { property: "og:title", content: "DRG Arquitetura | Itajaí, Camboriú e Balneário Camboriú" },
-      { property: "og:description", content: "Arquitetura e interiores para o seu jeito de viver em Itajaí, Camboriú e Balneário Camboriú." },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
