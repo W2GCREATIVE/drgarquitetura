@@ -640,7 +640,55 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 }
 
 .concepts-section {
-  padding-top:10px
+  padding-top:10px;
+  background-color:var(--forest-dark);
+  background-image:linear-gradient(#ffffff07 1px,transparent 1px),linear-gradient(90deg,#ffffff07 1px,transparent 1px);
+  background-size:80px 80px;
+  color:#f3f1ec
+}
+
+.concepts-section .eyebrow {
+  color:var(--gold)
+}
+
+.concepts-section h2 {
+  color:#f3f1ec
+}
+
+.concepts-section h2 em {
+  color:var(--gold)
+}
+
+.concepts-section .heading-aside {
+  color:#d5d0c8
+}
+
+.concepts-section .concept-caption>span {
+  color:var(--gold)
+}
+
+.concepts-section .concept-caption h3 {
+  color:#f3f1ec
+}
+
+.concepts-section .concept-caption p {
+  color:#d5d0c8
+}
+
+.concepts-section .concept-footer {
+  border-top-color:#86827a
+}
+
+.concepts-section .concept-footer p {
+  color:#d5d0c8
+}
+
+.concepts-section .text-link {
+  color:#f1f3e9
+}
+
+.concepts-section .text-link .link-line {
+  background:#d7ba83b3
 }
 
 .concept-grid {
