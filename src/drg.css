@@ -640,7 +640,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 }
 
 .concepts-section {
-  padding-top:10px;
   background-color:var(--forest-dark);
   background-image:linear-gradient(#ffffff07 1px,transparent 1px),linear-gradient(90deg,#ffffff07 1px,transparent 1px);
   background-size:80px 80px;
@@ -1635,9 +1634,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .section {
     padding-block:90px
   }
-  .concepts-section {
-    padding-top:0
-  }
   .about-grid {
     gap:55px
   }
@@ -1916,9 +1912,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   }
   .service-link {
     font-size:12px
-  }
-  .concepts-section {
-    padding-top:0
   }
   .concept-grid {
     grid-template-columns:1fr;
