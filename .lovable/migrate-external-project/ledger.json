@@ -1,0 +1,15 @@
+{
+  "source": "Site_DRG_-_Final.zip",
+  "capabilities": [
+    {"capability":"Static page, styles and scripts","source":"ZIP","outcome":"update","status":"pending","next_action":"Replace static content and preserve Cloud endpoints"},
+    {"capability":"Images and font","source":"ZIP","outcome":"update","status":"pending","next_action":"Upload new photos and logo; reuse identical font"},
+    {"capability":"Estimate rules","source":"ZIP calculator","outcome":"update","status":"pending","next_action":"Synchronize browser and server calculations and test all price ranges"},
+    {"capability":"Schema and existing records","source":"Existing Lovable Cloud","outcome":"preserve","status":"retained","next_action":"Verify new lead without altering existing records"},
+    {"capability":"Auth identities and authorization","source":"No accounts in static source; private Cloud tables","outcome":"preserve","status":"retained","next_action":"Keep tables inaccessible to public reads"},
+    {"capability":"Lead and event public endpoints","source":"ZIP backend and existing Cloud routes","outcome":"preserve","status":"pending","next_action":"Verify form submission and event persistence"},
+    {"capability":"WhatsApp, Instagram and email","source":"ZIP links","outcome":"preserve","status":"pending","next_action":"Verify link destinations"},
+    {"capability":"Callbacks, webhooks, schedules and secrets","source":"Source inspection","outcome":"not applicable","status":"verified","next_action":null},
+    {"capability":"Cutover","source":"Published site","outcome":"await publication","status":"pending","next_action":"Publish updated preview when requested"},
+    {"capability":"Permanent badge removal","source":"User preference","outcome":"preserve","status":"pending","next_action":"Check saved publication setting"}
+  ]
+}
