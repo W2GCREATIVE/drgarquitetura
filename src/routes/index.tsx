@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
+import { ProjectGallery } from "@/components/project-gallery";
 import "../drg.css";
 import bodyHtml from "../drg-body.html?raw";
 import configJs from "../drg-legacy/config.js?raw";
@@ -35,5 +36,5 @@ function Index() {
     // Executa os scripts originais do site sobre o HTML já renderizado.
     for (const code of [configJs, calculatorJs, appJs]) new Function(code).call(window);
   }, []);
-  return <div className="drg-site" dangerouslySetInnerHTML={{ __html: bodyHtml }} />;
+  return <div className="drg-site"><div dangerouslySetInnerHTML={{ __html: bodyHtml }} /><ProjectGallery /></div>;
 }
