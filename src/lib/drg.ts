@@ -4,8 +4,8 @@ export const config = {
   brand: "DRG Arquitetura",
   architect: "Douglas Gerst",
   whatsapp: "5547988188417",
-  privacyVersion: "apresentacao-2026-10-06",
-  estimateVersion: "demonstracao-2026-10-02",
+  privacyVersion: "revisao-2026-10-20",
+  estimateVersion: "faixas-douglas-2026-10-19",
   cities: ["Itajaí", "Balneário Camboriú", "Camboriú", "Outra cidade"],
   types: { casa: "Construir uma casa", apto_novo: "Apartamento novo", reforma: "Reformar imóvel" } as Record<string, string>,
   standards: { normal: "Essencial", alto: "Alto padrão", luxo: "Exclusivo" } as Record<string, string>,
@@ -14,10 +14,16 @@ export const config = {
     apto_novo: { normal: [1800, 2600], alto: [2800, 4200], luxo: [4200, 6500] },
     reforma: { normal: [2200, 3200], alto: [3200, 5000], luxo: [5000, 7500] },
   } as Record<string, Record<string, [number, number]>>,
-  projectPerM2: { casa: [130, 200], apto_novo: [170, 260], reforma: [170, 260] } as Record<string, [number, number]>,
-  projectFactor: { normal: 0.9, alto: 1, luxo: 1.25 } as Record<string, number>,
-  projectMinimum: [9000, 11700] as [number, number],
-  managementRate: [0.05, 0.1] as [number, number],
+  projectPerM2: {
+    casa: { normal: [70, 90], alto: [95, 110], luxo: [140, 170] },
+    apto_novo: { normal: [90, 100], alto: [110, 150], luxo: [170, 200] },
+    reforma: { normal: [90, 100], alto: [110, 150], luxo: [170, 200] },
+  } as Record<string, Record<string, [number, number]>>,
+  managementPerM2: {
+    casa: { normal: [30, 60], alto: [30, 60], luxo: [50, 80] },
+    apto_novo: { normal: [30, 60], alto: [40, 70], luxo: [80, 100] },
+    reforma: { normal: [30, 60], alto: [40, 70], luxo: [80, 100] },
+  } as Record<string, Record<string, [number, number]>>,
   areaLimits: [10, 5000] as [number, number],
 };
 
@@ -34,6 +40,7 @@ export interface Estimate {
   work: [number, number];
   project: [number, number];
   management: [number, number];
+  managementReference: [number, number];
   total: [number, number];
   version: string;
 }
@@ -41,12 +48,12 @@ export interface Estimate {
 export function validate(input: unknown): ProjectInput {
   if (!input || typeof input !== "object" || Array.isArray(input)) throw new Error("Informe os dados do projeto.");
   const i = input as Partial<ProjectInput>;
-  if (typeof i.type !== "string" || !(i.type in config.types)) throw new Error("Escolha um tipo de projeto válido.");
-  if (typeof i.standard !== "string" || !(i.standard in config.standards)) throw new Error("Escolha um padrão de acabamento válido.");
+  if (typeof i.type !== "string" || !Object.hasOwn(config.types, i.type)) throw new Error("Escolha um tipo de projeto válido.");
+  if (typeof i.standard !== "string" || !Object.hasOwn(config.standards, i.standard)) throw new Error("Escolha um padrão de acabamento válido.");
   if (typeof i.area !== "number" || !Number.isFinite(i.area) || i.area < config.areaLimits[0] || i.area > config.areaLimits[1])
     throw new Error("Informe uma área entre 10 e 5.000 m².");
   if (!config.cities.includes(i.city as string)) throw new Error("Escolha uma cidade válida.");
-  if (typeof i.management !== "boolean") throw new Error("Informe se deseja incluir gestão.");
+  if (typeof i.management !== "boolean") throw new Error("Informe se deseja incluir acompanhamento de obra.");
   return {
     type: i.type,
     standard: i.standard,
@@ -58,19 +65,19 @@ export function validate(input: unknown): ProjectInput {
 
 export function calculate(raw: unknown): Estimate {
   const input = validate(raw);
-  const unit = config.workPerM2[input.type]![input.standard]!;
+  const unit = config.workPerM2[input.type]?.[input.standard];
+  const pm = config.projectPerM2[input.type]?.[input.standard];
+  const mm = config.managementPerM2[input.type]?.[input.standard];
+  if (!unit || !pm || !mm) throw new Error("Escolha um cenário válido.");
   const work: [number, number] = [Math.round(unit[0] * input.area), Math.round(unit[1] * input.area)];
-  const pm = config.projectPerM2[input.type]!;
-  const factor = config.projectFactor[input.standard]!;
   const project: [number, number] = [
-    Math.round(Math.max(config.projectMinimum[0], input.area * pm[0] * factor)),
-    Math.round(Math.max(config.projectMinimum[1], input.area * pm[1] * factor)),
+    Math.round(input.area * pm[0]),
+    Math.round(input.area * pm[1]),
   ];
-  const management: [number, number] = input.management
-    ? [Math.round(work[0] * config.managementRate[0]), Math.round(work[1] * config.managementRate[1])]
-    : [0, 0];
+  const managementReference: [number, number] = [Math.round(input.area * mm[0]), Math.round(input.area * mm[1])];
+  const management: [number, number] = input.management ? managementReference : [0, 0];
   const total: [number, number] = [work[0] + project[0] + management[0], work[1] + project[1] + management[1]];
-  return { input, work, project, management, total, version: config.estimateVersion };
+  return { input, work, project, management, managementReference, total, version: config.estimateVersion };
 }
 
 export function inclusions(type: string): string {
