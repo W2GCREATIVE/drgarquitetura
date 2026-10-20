@@ -702,10 +702,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   min-width:0
 }
 
-.concept-interior {
-  margin-top:100px
-}
-
 .concept-visual {
   height:420px;
   background:#e5e1d9;
@@ -713,9 +709,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   border:1px solid var(--line)
 }
 
-.concept-interior .concept-visual {
-  height:360px
-}
+
 
 .concept-visual img {
   width:100%;
@@ -1718,9 +1712,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   .concept-visual {
     height:350px
   }
-  .concept-interior .concept-visual {
-    height:310px
-  }
+
   .about-grid {
     gap:35px
   }
