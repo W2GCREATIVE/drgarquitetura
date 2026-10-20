@@ -1,4 +1,5 @@
-- [ ] Import final ZIP page, styles, photos and logo.
-- [ ] Synchronize new estimate prices and test them.
-- [ ] Verify contact capture, events, WhatsApp and layouts; remove test data.
-- [ ] Preserve permanent badge removal and document update status.
+- [x] Import final ZIP page, styles, photos and logo.
+- [x] Synchronize new estimate prices and test them.
+- [x] Verify contact capture, WhatsApp and layouts; remove test data.
+- [x] Preserve permanent badge removal and document update status.
+- [ ] Source request-rate limits: blocked by unavailable platform support.
