@@ -62,6 +62,7 @@ export function ProjectGallery() {
   }, [open]);
 
   const photo = photos[index];
+  if (!photo) return null;
   return (
     <dialog ref={dialog} className="project-gallery" aria-label="Galeria de projetos DRG Arquitetura"
       onClose={() => { setOpen(false); trigger.current?.focus({ preventScroll: true }); }}
