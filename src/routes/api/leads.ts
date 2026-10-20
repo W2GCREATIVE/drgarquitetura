@@ -1,23 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { z } from "zod";
 import { calculate, config } from "@/lib/drg";
-
-const json = (status: number, data: unknown) =>
-  new Response(JSON.stringify(data), {
-    status,
-    headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" },
-  });
-
-const schema = z.object({
-  name: z.string().trim().min(2).max(100),
-  phone: z.string().regex(/^[1-9]{2}\d{8,9}$/),
-  email: z.union([z.literal(""), z.string().email().max(254)]).optional(),
-  moment: z.enum(["", "ja_tenho", "vou_comprar", "pesquisando"]).optional(),
-  consent: z.literal(true),
-  privacyVersion: z.string().max(60),
-  project: z.unknown(),
-  source: z.record(z.string(), z.string().max(150)).optional(),
-});
+import { contactSchema } from "@/lib/drg-contact";
+import { json, readBody, RequestError } from "@/lib/drg-request";
 
 export const Route = createFileRoute("/api/leads")({
   server: {
@@ -25,11 +9,11 @@ export const Route = createFileRoute("/api/leads")({
       POST: async ({ request }) => {
         let body: unknown;
         try {
-          body = await request.json();
-        } catch {
-          return json(400, { ok: false, error: "Envie os dados no formato JSON." });
+          body = await readBody(request);
+        } catch (error) {
+          return json(error instanceof RequestError ? error.status : 400, { ok: false, error: error instanceof Error ? error.message : "Envie os dados no formato JSON." });
         }
-        const parsed = schema.safeParse(body);
+        const parsed = contactSchema.safeParse(body);
         if (!parsed.success) return json(400, { ok: false, error: "Confira os dados informados." });
         let estimate;
         try {

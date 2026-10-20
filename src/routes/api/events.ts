@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { json, readBody, RequestError } from "@/lib/drg-request";
 
 const allowed = ["simulacao_iniciada", "passo1_concluido", "lead_capturado", "clique_whatsapp"];
 
@@ -8,18 +9,17 @@ export const Route = createFileRoute("/api/events")({
       POST: async ({ request }) => {
         let name: unknown;
         try {
-          name = ((await request.json()) as { name?: unknown }).name;
-        } catch {
-          name = null;
+          const body = await readBody(request);
+          name = body && typeof body === "object" ? (body as { name?: unknown }).name : null;
+        } catch (error) {
+          return json(error instanceof RequestError ? error.status : 400, { ok: false, error: "Evento inválido." });
         }
         if (typeof name !== "string" || !allowed.includes(name))
-          return new Response(JSON.stringify({ ok: false, error: "Evento inválido." }), { status: 400 });
+          return json(400, { ok: false, error: "Evento inválido." });
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-        await supabaseAdmin.from("funnel_events").insert({ name });
-        return new Response(JSON.stringify({ ok: true }), {
-          status: 201,
-          headers: { "Content-Type": "application/json" },
-        });
+        const { error } = await supabaseAdmin.from("funnel_events").insert({ name });
+        if (error) return json(500, { ok: false, error: "Não foi possível registrar o evento." });
+        return json(201, { ok: true });
       },
     },
   },
