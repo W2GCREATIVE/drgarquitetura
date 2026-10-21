@@ -14,3 +14,4 @@
 - ZIP calculator updates must synchronize src/lib/drg.ts and src/drg-legacy/config.js and calculator.js, with parity tests — why: the server computes the persisted estimate while the browser prepares the preview.
 - Keep `max-width:none` on `.container` in src/drg.css — why: Tailwind's own `.container` utility caps width at its breakpoint values (768px on a ~991px viewport) and squeezes the ported site layout.
 - Keep the project lightbox in a React component attached to the static project photos — why: accessible modal controls can evolve without rewriting the imported HTML or legacy calculator.
+- Mount gallery navigation controls through React portals into static navigation placeholders; keep photo descriptions with gallery assets — why: the same accessible gallery opens from covers and menus without duplicating state or modifying legacy navigation scripts.

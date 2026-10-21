@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { ChevronLeft, ChevronRight, LoaderCircle, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import mh1 from "@/assets/MH1.jpg.asset.json";
 import mh2 from "@/assets/MH2.jpg.asset.json";
@@ -19,54 +20,67 @@ import fachadaParigi from "@/assets/fachada_para_predio_-_Parigi.jpg.asset.json"
 import "./project-gallery.css";
 
 const photos = [
-  { url: mh1.url, alt: "Banheiro com banheira e iluminação natural" },
-  { url: mh2.url, alt: "Sala de estar com painel de televisão e plantas" },
-  { url: mh3.url, alt: "Cozinha com bancada e armários planejados" },
-  { url: mh4.url, alt: "Cozinha integrada com ilha e coifa" },
-  { url: mh5.url, alt: "Detalhe de bancada e espelho em banheiro" },
-  { url: rbc2.url, alt: "Ilha de cozinha com cooktop e plantas" },
-  { url: rbc3.url, alt: "Quarto com luz natural e cabeceira estofada" },
-  { url: rbc4.url, alt: "Cozinha e sala de jantar integradas" },
-  { url: aereaCaledonia1.url, alt: "Vista aérea de casa com piscina, deck e área de lazer" },
-  { url: aereaCaledonia2.url, alt: "Fachada de casa térrea com volumes brancos e revestimento geométrico" },
-  { url: ilhaBelaAntes.url, alt: "Edifício residencial de quatro pavimentos antes da renovação da fachada" },
-  { url: ilhaBelaDepois.url, alt: "Edifício residencial de quatro pavimentos após a renovação da fachada" },
-  { url: ilhaBela.url, alt: "Entrada de edifício residencial com pilares em tom terracota" },
-  { url: fachadaBs.url, alt: "Fachada de prédio contemporâneo de três pavimentos com esquadrias escuras" },
-  { url: fachadaParigi.url, alt: "Projeto de fachada para o edifício Parigi em iluminação de entardecer" },
+  { url: mh1.url, title: "Um respiro na rotina", caption: "Banheira junto à janela, madeira e luz natural em um espaço dedicado ao relaxamento." },
+  { url: mh2.url, title: "Estar em equilíbrio", caption: "Painel de televisão com marcenaria, tons suaves e plantas que trazem vida à sala." },
+  { url: mh3.url, title: "Beleza no cotidiano", caption: "Cozinha com armários planejados, bancada clara e madeira em uma composição leve e funcional." },
+  { url: mh4.url, title: "Cozinha para viver", caption: "Bancada com área de preparo, coifa metálica e marcenaria que aproveita cada espaço." },
+  { url: mh5.url, title: "Detalhes que acolhem", caption: "Espelho em arco, apoio em madeira e banco com armazenamento compõem um recanto cheio de personalidade." },
+  { url: rbc2.url, title: "O centro dos encontros", caption: "Ilha com cooktop, coifa dourada e vegetação conectam o preparo das refeições à convivência." },
+  { url: rbc3.url, title: "Conforto em cada camada", caption: "Quarto com cabeceira estofada, cortinas leves e iluminação acolhedora junto à cama." },
+  { url: rbc4.url, title: "Compartilhar à mesa", caption: "Mesa redonda, cadeiras em madeira e pendente integram o jantar à cozinha iluminada." },
+  { url: aereaCaledonia1.url, title: "A casa e a paisagem", caption: "Vista aérea da residência, com piscina, terraço e áreas de convívio abertas para o entorno." },
+  { url: aereaCaledonia2.url, title: "Volumes e contrastes", caption: "Fachada residencial com volumes claros, revestimento escuro e jardim junto ao acesso." },
+  { url: ilhaBelaAntes.url, title: "Um novo olhar · Antes", caption: "A fachada do edifício Ilha Bela antes da renovação, com sua composição e acabamentos originais." },
+  { url: ilhaBelaDepois.url, title: "Um novo olhar · Depois", caption: "A fachada renovada do Ilha Bela, com nova combinação de cores e destaque para os volumes verticais." },
+  { url: ilhaBela.url, title: "Uma entrada com identidade", caption: "Acesso ao Ilha Bela marcado por pilares em tom terracota, vidro e vegetação." },
+  { url: fachadaBs.url, title: "Ritmo na fachada", caption: "Volumes claros e escuros, amplas esquadrias e linhas retas definem a composição do edifício." },
+  { url: fachadaParigi.url, title: "Parigi ao entardecer", caption: "Perspectiva do projeto de fachada, com iluminação que valoriza os volumes, as varandas e o acesso." },
 ];
 
 export function ProjectGallery() {
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLElement | null>(null);
+  const thumbnails = useRef<HTMLDivElement>(null);
+  const touchStart = useRef<number | null>(null);
+  const [navHosts, setNavHosts] = useState<HTMLElement[]>([]);
   const [index, setIndex] = useState(0);
   const [open, setOpen] = useState(false);
+  const [loadedUrl, setLoadedUrl] = useState("");
   const move = (direction: number) => setIndex(value => (value + direction + photos.length) % photos.length);
+  const launch = useCallback((element: HTMLElement | null) => {
+    trigger.current = element;
+    const menu = document.getElementById("mobile-nav");
+    if (menu) menu.hidden = true;
+    const toggle = document.querySelector(".menu-toggle");
+    toggle?.setAttribute("aria-expanded", "false");
+    toggle?.setAttribute("aria-label", "Abrir menu");
+    setIndex(0);
+    setOpen(true);
+    dialog.current?.showModal();
+  }, []);
 
   useEffect(() => {
+    setNavHosts(Array.from(document.querySelectorAll<HTMLElement>("[data-portfolio-nav]")));
     const elements = Array.from(document.querySelectorAll<HTMLElement>("#conceitos .concept-visual"));
-    const launch = (event: Event) => {
+    const handleLaunch = (event: Event) => {
       if (event instanceof KeyboardEvent && event.key !== "Enter" && event.key !== " ") return;
       event.preventDefault();
-      trigger.current = event.currentTarget instanceof HTMLElement ? event.currentTarget : null;
-      setIndex(0);
-      setOpen(true);
-      dialog.current?.showModal();
+      launch(event.currentTarget instanceof HTMLElement ? event.currentTarget : null);
     };
     elements.forEach(element => {
       element.setAttribute("role", "button");
       element.setAttribute("tabindex", "0");
-      element.setAttribute("aria-label", "Abrir galeria de projetos");
+      element.setAttribute("aria-label", "Ver mais projetos: abrir portfólio");
       element.setAttribute("aria-haspopup", "dialog");
-      element.addEventListener("click", launch);
-      element.addEventListener("keydown", launch);
+      element.addEventListener("click", handleLaunch);
+      element.addEventListener("keydown", handleLaunch);
     });
     return () => elements.forEach(element => {
-      element.removeEventListener("click", launch);
-      element.removeEventListener("keydown", launch);
+      element.removeEventListener("click", handleLaunch);
+      element.removeEventListener("keydown", handleLaunch);
       ["role", "tabindex", "aria-label", "aria-haspopup"].forEach(attribute => element.removeAttribute(attribute));
     });
-  }, []);
+  }, [launch]);
 
   useEffect(() => {
     if (!open) return;
@@ -75,25 +89,58 @@ export function ProjectGallery() {
     return () => { document.body.style.overflow = previous; };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    thumbnails.current?.querySelector('[aria-current="true"]')?.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
+    for (const offset of [-1, 1]) {
+      const next = photos[(index + offset + photos.length) % photos.length];
+      if (next) { const image = new Image(); image.src = next.url; }
+    }
+  }, [index, open]);
+
   const photo = photos[index];
   if (!photo) return null;
-  return (
-    <dialog ref={dialog} className="project-gallery" aria-label="Galeria de projetos DRG Arquitetura"
+  return <>
+    {navHosts.map((host, key) => createPortal(
+      <Button variant="ghost" className="portfolio-nav-button" aria-haspopup="dialog" onClick={event => launch(event.currentTarget)}>Portfólio</Button>, host, String(key)
+    ))}
+    <dialog ref={dialog} className="project-gallery" aria-labelledby="gallery-title"
       onClose={() => { setOpen(false); trigger.current?.focus({ preventScroll: true }); }}
+      onClick={event => { if (event.target === event.currentTarget) dialog.current?.close(); }}
       onKeyDown={event => {
         if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
           event.preventDefault(); move(event.key === "ArrowLeft" ? -1 : 1);
         }
       }}>
-      {open && <>
-        <Button variant="ghost" size="icon" className="gallery-control gallery-close" aria-label="Fechar galeria" title="Fechar galeria" onClick={() => dialog.current?.close()}><X /></Button>
+      {open && <div className="gallery-layout">
+        <header className="gallery-header">
+          <div><p className="gallery-eyebrow">DRG ARQUITETURA</p><h2 id="gallery-title">Portfólio</h2></div>
+          <Button variant="ghost" size="icon" className="gallery-control gallery-close" aria-label="Fechar galeria" title="Fechar galeria" onClick={() => dialog.current?.close()}><X /></Button>
+        </header>
         <div className="project-gallery-stage">
           <Button variant="ghost" size="icon" className="gallery-control gallery-previous" aria-label="Foto anterior" title="Foto anterior" onClick={() => move(-1)}><ChevronLeft /></Button>
-          <img className="project-gallery-photo" src={photo.url} alt={photo.alt} />
+          <figure className="gallery-figure">
+            <div className="gallery-image-space" onTouchStart={event => { touchStart.current = event.touches[0]?.clientX ?? null; }} onTouchEnd={event => {
+              const end = event.changedTouches[0]?.clientX;
+              if (end !== undefined && touchStart.current !== null && Math.abs(end - touchStart.current) > 45) move(end < touchStart.current ? 1 : -1);
+              touchStart.current = null;
+            }}>
+              {loadedUrl !== photo.url && <LoaderCircle className="gallery-loading" aria-label="Carregando foto" />}
+              <img key={photo.url} className="project-gallery-photo" src={photo.url} alt={photo.caption} onLoad={() => setLoadedUrl(photo.url)} />
+            </div>
+            <figcaption className="gallery-caption" aria-live="polite">
+              <div><h3>{photo.title}</h3><p>{photo.caption}</p></div>
+              <span className="gallery-counter">{String(index + 1).padStart(2, "0")} / {photos.length}</span>
+            </figcaption>
+          </figure>
           <Button variant="ghost" size="icon" className="gallery-control gallery-next" aria-label="Próxima foto" title="Próxima foto" onClick={() => move(1)}><ChevronRight /></Button>
         </div>
-        <p className="gallery-counter" aria-live="polite">{index + 1} / {photos.length}</p>
-      </>}
+        <div className="gallery-thumbnails" ref={thumbnails} aria-label="Selecionar foto">
+          {photos.map((item, position) => <Button key={item.url} variant="ghost" className="gallery-thumbnail" aria-label={`Ver foto ${position + 1}: ${item.title}`} aria-current={position === index ? "true" : undefined} onClick={() => setIndex(position)}>
+            <img src={item.url} alt="" loading="lazy" />
+          </Button>)}
+        </div>
+      </div>}
     </dialog>
-  );
+  </>;
 }
