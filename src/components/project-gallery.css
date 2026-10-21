@@ -68,10 +68,10 @@
   .project-gallery .gallery-previous { grid-column: 1; grid-row: 2; justify-self: end; }
   .project-gallery .gallery-next { grid-column: 2; grid-row: 2; justify-self: start; }
   .project-gallery .gallery-control { width: 44px; height: 44px; }
-  .gallery-caption { min-height: 112px; gap: 12px; align-items: start; }
+  .gallery-caption { min-height: 118px; gap: 8px; }
   .gallery-caption h3 { font-size: 23px; }
   .gallery-caption p { font-size: 12px; }
-  .gallery-counter { padding-top: 5px; font-size: 12px; }
+  .gallery-counter { font-size: 12px; }
   .project-gallery .gallery-thumbnail { width: 46px; min-width: 46px; height: 40px; }
   .project-cover-invitation { left: 16px; right: 16px; bottom: 16px; }
 }
