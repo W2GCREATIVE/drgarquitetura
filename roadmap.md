@@ -3,4 +3,4 @@
 - [x] Verify contact capture, WhatsApp and layouts; remove test data.
 - [x] Preserve permanent badge removal and document update status.
 - [ ] Source request-rate limits: blocked by unavailable platform support.
-- [ ] Improve gallery presentation, captions, cover invitations and direct Portfólio navigation; verify desktop and mobile.
+- [x] Improve gallery presentation, captions, cover invitations and direct Portfólio navigation; verify desktop and mobile.
