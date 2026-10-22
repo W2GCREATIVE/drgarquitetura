@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ParceirosRouteImport } from './routes/parceiros'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ApiEventsRouteImport } from './routes/api/events'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
@@ -18,6 +19,11 @@ import { Route as ApiLeadsRouteImport } from './routes/api/leads'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ParceirosRoute = ParceirosRouteImport.update({
+  id: '/parceiros',
+  path: '/parceiros',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -43,6 +49,7 @@ const ApiLeadsRoute = ApiLeadsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/parceiros': typeof ParceirosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/events': typeof ApiEventsRoute
   '/api/health': typeof ApiHealthRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/parceiros': typeof ParceirosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/events': typeof ApiEventsRoute
   '/api/health': typeof ApiHealthRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/parceiros': typeof ParceirosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/events': typeof ApiEventsRoute
   '/api/health': typeof ApiHealthRoute
@@ -65,12 +74,25 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sitemap.xml' | '/api/events' | '/api/health' | '/api/leads'
+  fullPaths:
+    | '/'
+    | '/parceiros'
+    | '/sitemap.xml'
+    | '/api/events'
+    | '/api/health'
+    | '/api/leads'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sitemap.xml' | '/api/events' | '/api/health' | '/api/leads'
+  to:
+    | '/'
+    | '/parceiros'
+    | '/sitemap.xml'
+    | '/api/events'
+    | '/api/health'
+    | '/api/leads'
   id:
     | '__root__'
     | '/'
+    | '/parceiros'
     | '/sitemap.xml'
     | '/api/events'
     | '/api/health'
@@ -79,6 +101,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ParceirosRoute: typeof ParceirosRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiEventsRoute: typeof ApiEventsRoute
   ApiHealthRoute: typeof ApiHealthRoute
@@ -92,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/parceiros': {
+      id: '/parceiros'
+      path: '/parceiros'
+      fullPath: '/parceiros'
+      preLoaderRoute: typeof ParceirosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -127,6 +157,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ParceirosRoute: ParceirosRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiEventsRoute: ApiEventsRoute,
   ApiHealthRoute: ApiHealthRoute,
