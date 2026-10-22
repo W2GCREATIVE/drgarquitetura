@@ -4,6 +4,7 @@ import { json, readBody, RequestError } from "@/lib/drg-request";
 const allowed = ["simulacao_iniciada", "passo1_concluido", "lead_capturado", "clique_whatsapp"];
 
 export const Route = createFileRoute("/api/events")({
+  staticData: { sitemap: false },
   server: {
     handlers: {
       POST: async ({ request }) => {

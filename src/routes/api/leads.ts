@@ -4,6 +4,7 @@ import { contactSchema } from "@/lib/drg-contact";
 import { json, readBody, RequestError } from "@/lib/drg-request";
 
 export const Route = createFileRoute("/api/leads")({
+  staticData: { sitemap: false },
   server: {
     handlers: {
       POST: async ({ request }) => {

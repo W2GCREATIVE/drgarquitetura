@@ -12,6 +12,7 @@ const description =
   "Projetos de interiores para apartamentos, arquitetura residencial e reformas em Itajaí, Camboriú e Balneário Camboriú. Converse com o arquiteto Douglas Gerst.";
 
 export const Route = createFileRoute("/")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title },
