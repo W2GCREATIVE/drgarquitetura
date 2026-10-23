@@ -16,8 +16,9 @@
   color: var(--ink); font-family: var(--body); font-size: 14px; line-height: 1.65;
   font-weight: 500; display: block; width: auto;
   position: relative; white-space: nowrap; box-shadow: none; letter-spacing: 0;
-  text-transform: none; line-height: inherit; cursor: pointer;
+  text-transform: none; cursor: pointer;
 }
+.drg-site .desktop-nav [data-portfolio-nav] { display: contents; }
 .drg-site .portfolio-nav-button::after {
   content: ''; position: absolute; left: 0; right: 0; bottom: -7px; height: 1px;
   background: var(--gold-dark); transform: scaleX(0); transform-origin: left; transition: transform .25s;
