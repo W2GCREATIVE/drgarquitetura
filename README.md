@@ -16,6 +16,15 @@ Continue developing this project in the [Lovable editor](https://lovable.dev/pro
 
 ## Development
 
+## Vercel
+
+- Build command: `bun run build` (or `npm run build`). Do not force a static `dist` output directory; Nitro generates Vercel server functions and assets.
+- The build configuration targets Vercel outside Lovable. Lovable builds keep their managed hosting target.
+- Vercel automatically sets `VERCEL=1`. Without managed Cloud server credentials, the validated `/api/leads` and `/api/events` requests are forwarded server-side to `https://drgarquitetura.lovable.app`, so contacts and traffic stay in the existing Cloud. Keep that published app available.
+- Never copy a service-role key into browser configuration or GitHub. Lovable Cloud's managed private key is not available for export.
+- Private admin reads on external hosting still require a separately supported authenticated server connection; the capture relay does not proxy private data or administrator sessions.
+- After syncing these changes to GitHub, trigger a new Vercel deployment; an existing deployment will keep its previous server code.
+
 Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
 
 ```sh
