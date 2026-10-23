@@ -32,6 +32,22 @@ let started = false;
 
 function Index() {
   useEffect(() => {
+    try {
+      if (sessionStorage.getItem("drg-visit")) return;
+      sessionStorage.setItem("drg-visit", "1");
+    } catch {
+      /* storage unavailable */
+    }
+    fetch("/api/events", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
+      keepalive: true,
+      body: JSON.stringify({ name: "visita" }),
+    }).catch(() => {});
+  }, []);
+
+  useEffect(() => {
     if (started) return;
     started = true;
     // Executa os scripts originais do site sobre o HTML já renderizado.

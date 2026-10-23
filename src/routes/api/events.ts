@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { json, readBody, RequestError } from "@/lib/drg-request";
 
-const allowed = ["simulacao_iniciada", "passo1_concluido", "lead_capturado", "clique_whatsapp"];
+const allowed = ["visita", "simulacao_iniciada", "passo1_concluido", "lead_capturado", "clique_whatsapp"];
 
 export const Route = createFileRoute("/api/events")({
   staticData: { sitemap: false },
