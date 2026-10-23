@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 
 import { listTraffic } from "@/lib/admin.functions";
+import { adminRefreshOptions } from "@/lib/admin-refresh";
 
 const STEPS: { key: string; label: string; hint: string }[] = [
   { key: "visita", label: "Visitas", hint: "pessoas que abriram o site" },
@@ -17,7 +18,7 @@ function dayKey(d: Date) {
 
 export function AdminTraffic() {
   const fetchTraffic = useServerFn(listTraffic);
-  const { data, error, isPending } = useQuery({ queryKey: ["admin-traffic"], queryFn: () => fetchTraffic(), retry: false });
+  const { data, error, isPending } = useQuery({ queryKey: ["admin-traffic"], queryFn: () => fetchTraffic(), retry: false, ...adminRefreshOptions });
 
   const view = useMemo(() => {
     const events = data ?? [];

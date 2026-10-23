@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 
 import { supabase } from "@/integrations/supabase/client";
 import { listLeads } from "@/lib/admin.functions";
+import { adminRefreshOptions } from "@/lib/admin-refresh";
 import { useMemo, useState } from "react";
 import { formatRange } from "@/lib/drg";
 import "@/components/admin-panel.css";
@@ -124,7 +125,7 @@ function AdminPage() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const fetchLeads = useServerFn(listLeads);
-  const { data, error, isPending } = useQuery({ queryKey: ["admin-leads"], queryFn: () => fetchLeads(), retry: false });
+  const { data, error, isPending } = useQuery({ queryKey: ["admin-leads"], queryFn: () => fetchLeads(), retry: false, ...adminRefreshOptions });
   const [query, setQuery] = useState("");
   const [type, setType] = useState("todos");
   const [tab, setTab] = useState<"contatos" | "trafego">("contatos");

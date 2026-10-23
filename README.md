@@ -22,7 +22,7 @@ Continue developing this project in the [Lovable editor](https://lovable.dev/pro
 - The build configuration targets Vercel outside Lovable. Lovable builds keep their managed hosting target.
 - Vercel automatically sets `VERCEL=1`. Without managed Cloud server credentials, the validated `/api/leads` and `/api/events` requests are forwarded server-side to `https://drgarquitetura.lovable.app`, so contacts and traffic stay in the existing Cloud. Keep that published app available.
 - Never copy a service-role key into browser configuration or GitHub. Lovable Cloud's managed private key is not available for export.
-- Private admin reads on external hosting still require a separately supported authenticated server connection; the capture relay does not proxy private data or administrator sessions.
+- Private admin reads use the signed-in user's Cloud connection and administrator-only database policies; no service-role key is needed. Vercel server functions require `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY`, matching the public browser Cloud configuration. Do not set either to a preview proxy address.
 - After syncing these changes to GitHub, trigger a new Vercel deployment; an existing deployment will keep its previous server code.
 
 Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).

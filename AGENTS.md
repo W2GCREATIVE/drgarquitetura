@@ -10,7 +10,7 @@
 <!-- LOVABLE:END -->
 
 - The DRG page renders the original static HTML (src/drg-body.html) and runs the original scripts in src/drg-legacy/ — why: site updates arrive as static ZIPs and can be swapped in with minimal porting.
-- Leads and funnel events are stored via /api/leads and /api/events server routes using the admin client; tables have no public policies — why: the result is only revealed after the lead is saved server-side.
+- Leads and funnel events are stored via /api/leads and /api/events using the Cloud admin client; only authenticated administrators have SELECT policies and anonymous access stays blocked — why: results require persisted contacts and private admin reads must work without exporting Cloud credentials.
 - On Vercel without Cloud server credentials, validated capture payloads are relayed server-to-server to the fixed published DRG capture endpoints; admin credentials are never copied to Vercel — why: the managed Cloud secret is unavailable for external hosting, while all contacts and traffic must remain in the same Cloud.
 - Pin Nitro's external deployment target to Vercel while letting the Lovable helper preserve its managed target — why: GitHub deployments need Vercel server-function output, not a Cloudflare bundle.
 - Both capture endpoints validate Origin against the request origin or an exact DRG hosting-origin allowlist, while rejecting cross-site requests; never trust arbitrary forwarded hosts — why: hosting proxies may rewrite the request URL and otherwise reject legitimate calculator submissions.
@@ -18,5 +18,5 @@
 - Keep `max-width:none` on `.container` in src/drg.css — why: Tailwind's own `.container` utility caps width at its breakpoint values (768px on a ~991px viewport) and squeezes the ported site layout.
 - Keep the project lightbox in a React component attached to the static project photos — why: accessible modal controls can evolve without rewriting the imported HTML or legacy calculator.
 - Mount gallery navigation controls through React portals into static navigation placeholders; keep photo descriptions with gallery assets — why: the same accessible gallery opens from covers and menus without duplicating state or modifying legacy navigation scripts.
-- Admin panel: /admin lives under _authenticated (client-only gate → /auth); lead reads go through the listLeads server fn which verifies has_role('admin') before using the admin client — why: leads have no public RLS policies, so the role check is the only read path.
+- Admin panel: /admin lives under _authenticated; listLeads and listTraffic verify has_role('admin') and read through context.supabase with admin-only RLS; shared query refresh options update open panels — why: both hosting providers must read the same stored contacts without a service key and show newly received submissions automatically.
 - Site images and font live as real files in public/media/ (not Lovable CDN pointers) — why: the repo is also deployed to Vercel via GitHub, where /__l5e/ URLs don't exist.
