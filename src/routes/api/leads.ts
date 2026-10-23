@@ -23,6 +23,9 @@ export const Route = createFileRoute("/api/leads")({
           return json(400, { ok: false, error: (e as Error).message });
         }
         const d = parsed.data;
+        const { deliverFromVercel } = await import("@/lib/drg-delivery.server");
+        const delivered = await deliverFromVercel("/api/leads", { ...d, project: estimate.input });
+        if (delivered) return delivered;
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         const { data, error } = await supabaseAdmin
           .from("leads")

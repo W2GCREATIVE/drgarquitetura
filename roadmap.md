@@ -6,3 +6,5 @@
 - [x] Improve gallery presentation, captions, cover invitations and direct Portfólio navigation; verify desktop and mobile.
 - [x] Admin panel: /auth login, /admin leads list, user_roles + has_role, protected server function.
 - [x] Correct calculator contact capture behind hosting proxies; verify saved estimates and admin readback, then remove only temporary test leads.
+- [x] Verify Vercel contact delivery through the existing published Cloud and admin readback; test event forwarding and remove the temporary verification lead.
+- [ ] Verify the updated public Vercel deployment after GitHub synchronization (requires the owner's Vercel deployment).

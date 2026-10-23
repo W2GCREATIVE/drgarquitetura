@@ -17,6 +17,9 @@ export const Route = createFileRoute("/api/events")({
         }
         if (typeof name !== "string" || !allowed.includes(name))
           return json(400, { ok: false, error: "Evento inválido." });
+        const { deliverFromVercel } = await import("@/lib/drg-delivery.server");
+        const delivered = await deliverFromVercel("/api/events", { name });
+        if (delivered) return delivered;
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         const { error } = await supabaseAdmin.from("funnel_events").insert({ name });
         if (error) return json(500, { ok: false, error: "Não foi possível registrar o evento." });
