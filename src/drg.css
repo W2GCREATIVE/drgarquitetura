@@ -142,7 +142,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   font-weight:600;
   line-height:1.4;
   transition:background .28s ease,border-color .28s ease,box-shadow .28s ease,transform .4s var(--ease);
-  border-radius:1px
+  border-radius:8px
 }
 
 .button:hover {
@@ -528,7 +528,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:0;
-  border:1px solid var(--line)
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden
 }
 
 .service-card {
@@ -706,7 +708,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   height:420px;
   background:#e5e1d9;
   overflow:hidden;
-  border:1px solid var(--line)
+  border:1px solid var(--line);
+  border-radius:10px
 }
 
 
@@ -926,7 +929,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   grid-template-columns:1.1fr .9fr;
   align-items:start;
   border:1px solid var(--line);
-  background:var(--white)
+  background:var(--white);
+  border-radius:12px;
+  overflow:hidden
 }
 
 .calculator-form {
@@ -945,6 +950,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   border:1px solid #dde2d3;
   width:35px;
   height:35px;
+  border-radius:10px;
   display:grid;
   place-items:center;
   font-size:12px;
@@ -1004,6 +1010,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   justify-content:space-between;
   align-items:center;
   border:1px solid var(--line);
+  border-radius:8px;
   padding:13px 17px;
   min-height:55px;
   transition:background .2s,border-color .2s,box-shadow .2s;
@@ -1074,7 +1081,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   color:var(--ink);
   padding:12px 13px;
   border:1px solid var(--line);
-  border-radius:1px;
+  border-radius:8px;
   font-size:14px;
   width:100%;
   line-height:1.6;
@@ -1142,6 +1149,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   place-items:center;
   min-height:48px;
   border:1px solid var(--line);
+  border-radius:8px;
   padding:12px 5px;
   font-size:12px;
   line-height:1.3;
@@ -1292,6 +1300,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 
 .city-tags span {
   border:1px solid #c6cdbc;
+  border-radius:999px;
   padding:7px 12px;
   font-size:11px
 }
@@ -1378,6 +1387,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   position:absolute;
   inset:45px 10% 45px;
   border:1px solid #d3baa044;
+  border-radius:18px;
   pointer-events:none
 }
 
@@ -1484,7 +1494,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   max-height:85vh;
   border:1px solid var(--line);
   overflow-y:auto;
-  border-radius:4px;
+  border-radius:12px;
   box-shadow:0 20px 100px #0005
 }
 
@@ -2286,6 +2296,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   margin-inline:auto;
   border:1px solid var(--line);
   background:var(--white);
+  border-radius:12px;
+  overflow:hidden;
   box-shadow:0 32px 90px #24241d10
 }
 
@@ -2372,7 +2384,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   padding:24px 28px;
   margin:0 0 30px;
   overflow:hidden;
-  border-left:3px solid var(--gold)
+  border-left:3px solid var(--gold);
+  border-radius:8px
 }
 
 .locked-preview>span {
@@ -2443,6 +2456,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 
 .result-card {
   border:1px solid var(--line);
+  border-radius:10px;
   padding:32px;
   background:#faf9f6
 }
@@ -2547,6 +2561,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 
 .result-caveat {
   border:1px solid var(--line);
+  border-radius:10px;
   margin-top:22px;
   padding:0 20px
 }
