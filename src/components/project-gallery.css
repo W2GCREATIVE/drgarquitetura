@@ -2,7 +2,7 @@
 .project-cover-invitation {
   position: absolute; z-index: 2; bottom: 24px; left: 24px; right: 24px;
   display: flex; justify-content: space-between; align-items: center;
-  padding: 14px 18px; border: 1px solid var(--gallery-border); border-radius: 4px;
+  padding: 14px 18px; border: 1px solid var(--gallery-border); border-radius: 8px;
   background: var(--gallery-surface); color: var(--gallery-foreground); backdrop-filter: blur(12px);
   font-size: 14px; font-weight: 500; opacity: 0; transform: translateY(8px);
   transition: opacity .25s, transform .25s; pointer-events: none;
