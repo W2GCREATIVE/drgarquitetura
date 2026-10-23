@@ -46,10 +46,9 @@ const STANDARD_LABELS: Record<string, string> = {
 };
 
 const MOMENT_LABELS: Record<string, string> = {
-  pesquisando: "Pesquisando",
-  "3meses": "Em até 3 meses",
-  "6meses": "Em até 6 meses",
-  "1ano": "Em até 1 ano",
+  ja_tenho: "Já tem o imóvel",
+  vou_comprar: "Vai comprar",
+  pesquisando: "Só pesquisando",
 };
 
 export const Route = createFileRoute("/_authenticated/admin")({
@@ -90,7 +89,7 @@ const WaIcon = () => (
 function LeadCard({ lead }: { lead: Lead }) {
   const estimate = (lead.estimate ?? {}) as Estimate;
   const input = estimate.input ?? {};
-  const hot = lead.moment === "3meses";
+  const hot = lead.moment === "ja_tenho";
   return (
     <li className="a-lead">
       <div className="a-avatar" aria-hidden="true">{initials(lead.name)}</div>
@@ -144,7 +143,7 @@ function AdminPage() {
     return {
       total: list.length,
       week: list.filter((l) => new Date(l.created_at).getTime() >= week).length,
-      hot: list.filter((l) => l.moment === "3meses").length,
+      hot: list.filter((l) => l.moment === "ja_tenho").length,
       area: areas.length ? Math.round(areas.reduce((a, b) => a + b, 0) / areas.length) : 0,
     };
   }, [data]);
@@ -181,7 +180,7 @@ function AdminPage() {
         <div className="a-stats">
           <div className="a-stat"><span>Total</span><strong>{stats.total}</strong><em>contatos recebidos</em></div>
           <div className="a-stat"><span>Últimos 7 dias</span><strong>{stats.week}</strong><em>novos contatos</em></div>
-          <div className="a-stat"><span>Prontos já</span><strong>{stats.hot}</strong><em>querem começar em até 3 meses</em></div>
+          <div className="a-stat"><span>Já têm imóvel</span><strong>{stats.hot}</strong><em>prontos para projetar</em></div>
           <div className="a-stat"><span>Metragem média</span><strong>{stats.area ? `${stats.area} m²` : "—"}</strong><em>dos imóveis simulados</em></div>
         </div>
 
