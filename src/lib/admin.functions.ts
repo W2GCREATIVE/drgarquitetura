@@ -24,3 +24,28 @@ export const listLeads = createServerFn({ method: "GET" })
     }
     return data;
   });
+
+export const listTraffic = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { data: isAdmin, error: roleError } = await context.supabase.rpc("has_role", {
+      _user_id: context.userId,
+      _role: "admin",
+    });
+    if (roleError || !isAdmin) {
+      throw new Error("Forbidden");
+    }
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const since = new Date(Date.now() - 30 * 864e5).toISOString();
+    const { data, error } = await supabaseAdmin
+      .from("funnel_events")
+      .select("name, created_at")
+      .gte("created_at", since)
+      .order("created_at", { ascending: true })
+      .limit(20000);
+    if (error) {
+      console.error("admin listTraffic failed", error);
+      throw new Error("Não foi possível carregar o tráfego.");
+    }
+    return data;
+  });

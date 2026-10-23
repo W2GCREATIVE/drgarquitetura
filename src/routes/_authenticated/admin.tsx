@@ -7,6 +7,7 @@ import { listLeads } from "@/lib/admin.functions";
 import { useMemo, useState } from "react";
 import { formatRange } from "@/lib/drg";
 import "@/components/admin-panel.css";
+import { AdminTraffic } from "@/components/admin-traffic";
 
 function phoneDisplay(phone: string) {
   const digits = phone.replace(/\D/g, "");
@@ -126,6 +127,7 @@ function AdminPage() {
   const { data, error, isPending } = useQuery({ queryKey: ["admin-leads"], queryFn: () => fetchLeads(), retry: false });
   const [query, setQuery] = useState("");
   const [type, setType] = useState("todos");
+  const [tab, setTab] = useState<"contatos" | "trafego">("contatos");
 
   async function handleSignOut() {
     await queryClient.cancelQueries();
@@ -174,9 +176,14 @@ function AdminPage() {
           <p className="a-eyebrow">Contatos do site</p>
           <h1 className="serif">Pessoas prontas para conversar.</h1>
           <p>Cada contato abaixo fez uma simulação e autorizou o retorno pelo WhatsApp.</p>
+          <div className="a-tabs" role="tablist" aria-label="Seções do painel">
+            <button type="button" role="tab" className="a-tab" aria-selected={tab === "contatos"} onClick={() => setTab("contatos")}>Contatos</button>
+            <button type="button" role="tab" className="a-tab" aria-selected={tab === "trafego"} onClick={() => setTab("trafego")}>Tráfego do site</button>
+          </div>
         </div>
       </section>
       <main className="a-main">
+        {tab === "trafego" ? <AdminTraffic /> : (<>
         <div className="a-stats">
           <div className="a-stat"><span>Total</span><strong>{stats.total}</strong><em>contatos recebidos</em></div>
           <div className="a-stat"><span>Últimos 7 dias</span><strong>{stats.week}</strong><em>novos contatos</em></div>
@@ -203,6 +210,7 @@ function AdminPage() {
             <ul className="a-list">{filtered.map((lead) => <LeadCard key={lead.id} lead={lead} />)}</ul>
           )
         ) : null}
+        </>)}
       </main>
     </div>
   );

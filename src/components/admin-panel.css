@@ -86,3 +86,31 @@
   .a-brand strong { display: none; }
   .a-stat strong { font-size: 24px; }
 }
+
+.a-tabs { display: inline-flex; gap: 4px; margin-top: 26px; padding: 4px; border-radius: 999px; background: color-mix(in oklab, var(--a-on-dark) 10%, transparent); }
+.a-tab { border: 0; background: transparent; color: color-mix(in oklab, var(--a-on-dark) 80%, transparent); padding: 9px 20px; border-radius: 999px; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+.a-tab[aria-selected="true"] { background: var(--a-gold); color: var(--a-forest-dark); }
+.a-traffic { display: grid; gap: 20px; }
+.a-panel { background: var(--a-card); border: 1px solid var(--a-line); border-radius: 18px; padding: 24px; }
+.a-panel header h2 { margin: 0; font-size: 24px; color: var(--a-forest-dark); }
+.a-panel header p { margin: 4px 0 0; font-size: 13px; color: var(--a-muted); }
+.a-bars { display: grid; grid-template-columns: repeat(14, minmax(0, 1fr)); gap: 8px; height: 220px; margin-top: 22px; align-items: end; }
+.a-bar-col { height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; min-width: 0; }
+.a-bar { width: 100%; max-width: 38px; min-height: 3px; border-radius: 8px 8px 3px 3px; background: var(--a-forest); }
+.a-bar.lead { background: var(--a-gold-dark); }
+.a-bar-value { font-size: 12px; font-weight: 600; color: var(--a-forest-dark); }
+.a-bar-label { font-size: 10px; color: var(--a-muted); white-space: nowrap; }
+.a-funnel { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 16px; }
+.a-funnel li { display: grid; grid-template-columns: minmax(150px, 220px) minmax(0, 1fr) 48px; gap: 16px; align-items: center; }
+.a-funnel-text strong { display: block; font-size: 14px; color: var(--a-forest-dark); }
+.a-funnel-text span { font-size: 12px; color: var(--a-muted); }
+.a-funnel-track { height: 12px; border-radius: 999px; background: var(--a-paper); overflow: hidden; }
+.a-funnel-track div { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--a-forest), var(--a-gold-dark)); }
+.a-funnel b { text-align: right; font-family: Georgia, serif; font-weight: 400; font-size: 22px; color: var(--a-forest-dark); }
+.a-footnote { font-size: 12px; color: var(--a-muted); text-align: center; margin: 0; }
+@media (max-width: 600px) {
+  .a-bar-label { display: none; }
+  .a-bars { gap: 4px; }
+  .a-funnel li { grid-template-columns: minmax(0, 1fr) 40px; }
+  .a-funnel-track { grid-column: 1 / -1; grid-row: 2; }
+}
