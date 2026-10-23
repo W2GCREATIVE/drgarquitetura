@@ -16,3 +16,4 @@
 - Keep the project lightbox in a React component attached to the static project photos — why: accessible modal controls can evolve without rewriting the imported HTML or legacy calculator.
 - Mount gallery navigation controls through React portals into static navigation placeholders; keep photo descriptions with gallery assets — why: the same accessible gallery opens from covers and menus without duplicating state or modifying legacy navigation scripts.
 - Admin panel: /admin lives under _authenticated (client-only gate → /auth); lead reads go through the listLeads server fn which verifies has_role('admin') before using the admin client — why: leads have no public RLS policies, so the role check is the only read path.
+- Site images and font live as real files in public/media/ (not Lovable CDN pointers) — why: the repo is also deployed to Vercel via GitHub, where /__l5e/ URLs don't exist.
