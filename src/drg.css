@@ -793,7 +793,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   flex-direction:column;
   justify-content:flex-end;
   padding:40px;
-  color:#fff
+  color:#fff;
+  border-radius:14px
 }
 
 .about-photo {
