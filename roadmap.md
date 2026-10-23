@@ -4,3 +4,4 @@
 - [x] Preserve permanent badge removal and document update status.
 - [ ] Source request-rate limits: blocked by unavailable platform support.
 - [x] Improve gallery presentation, captions, cover invitations and direct Portfólio navigation; verify desktop and mobile.
+- [ ] Admin panel: /auth login, /admin leads list, user_roles + has_role, protected server function; grant admin to Douglas after his signup.
