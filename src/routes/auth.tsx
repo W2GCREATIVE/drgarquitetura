@@ -7,9 +7,10 @@ type AuthSearch = { redirect: string };
 
 export const Route = createFileRoute("/auth")({
   staticData: { sitemap: false },
-  validateSearch: (search: Record<string, unknown>): AuthSearch => ({
-    redirect: typeof search.redirect === "string" && search.redirect.startsWith("/") ? search.redirect : "/admin",
-  }),
+  validateSearch: (search: Record<string, unknown>): AuthSearch => {
+    const target = search["redirect"];
+    return { redirect: typeof target === "string" && target.startsWith("/") ? target : "/admin" };
+  },
   head: () => ({
     meta: [
       { title: "Acesso restrito | DRG Arquitetura" },
