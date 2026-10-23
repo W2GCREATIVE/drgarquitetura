@@ -73,7 +73,7 @@ function formatDate(value: string) {
 
 function initials(name: string) {
   const parts = name.trim().split(/\s+/);
-  return ((parts[0]?.[0] ?? "") + (parts.length > 1 ? parts[parts.length - 1][0] : "")).toUpperCase();
+  return ((parts[0]?.[0] ?? "") + (parts.length > 1 ? (parts[parts.length - 1]?.[0] ?? "") : "")).toUpperCase();
 }
 
 function leadWaUrl(lead: Lead) {
@@ -187,7 +187,7 @@ function AdminPage() {
         <div className="a-toolbar">
           <input className="a-search" type="search" placeholder="Buscar por nome, telefone ou e-mail" value={query} onChange={(e) => setQuery(e.target.value)} aria-label="Buscar contato" />
           <div className="a-chips" role="group" aria-label="Filtrar por tipo">
-            {[["todos", "Todos"], ...Object.entries(TYPE_LABELS)].map(([value, label]) => (
+            {([["todos", "Todos"], ...Object.entries(TYPE_LABELS)] as [string, string][]).map(([value, label]) => (
               <button key={value} type="button" className="a-chip" aria-pressed={type === value} onClick={() => setType(value)}>{label}</button>
             ))}
           </div>
