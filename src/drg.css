@@ -2815,9 +2815,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .reviews-section .eyebrow{color:var(--gold)}
 .reviews-section .section-heading{justify-content:center;text-align:center;margin-bottom:0}
 .reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:40px}
-.review-card{margin:0;padding:32px;border:1px solid #86827a59;background:#ffffff0a;display:flex;flex-direction:column;gap:16px}
+.review-card{margin:0;padding:32px;border:1px solid #86827a66;background:#33352f;display:flex;flex-direction:column;gap:16px}
 .review-stars{color:var(--gold);letter-spacing:3px;font-size:18px}
 .review-card blockquote{margin:0;font-size:17px;line-height:1.6;color:#e8e4dc}
 .review-card figcaption{margin-top:auto;font-weight:600;display:flex;flex-direction:column;gap:2px;color:#f3f1ec}
-.review-card figcaption span{font-weight:400;font-size:13px;color:#a9a49b}
+.review-card figcaption span{font-weight:400;font-size:13px;color:#c8c3ba}
 @media (max-width:760px){.reviews-grid{grid-template-columns:1fr}.review-card{padding:24px}}
