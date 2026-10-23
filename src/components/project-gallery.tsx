@@ -40,6 +40,7 @@ const photos = [
 export function ProjectGallery() {
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLElement | null>(null);
+  const restoreFocus = useRef(false);
   const thumbnails = useRef<HTMLDivElement>(null);
   const touchStart = useRef<number | null>(null);
   const [navHosts, setNavHosts] = useState<HTMLElement[]>([]);
@@ -47,8 +48,9 @@ export function ProjectGallery() {
   const [open, setOpen] = useState(false);
   const [loadedUrl, setLoadedUrl] = useState("");
   const move = (direction: number) => setIndex(value => (value + direction + photos.length) % photos.length);
-  const launch = useCallback((element: HTMLElement | null) => {
+  const launch = useCallback((element: HTMLElement | null, keyboard = false) => {
     trigger.current = element;
+    restoreFocus.current = keyboard;
     const menu = document.getElementById("mobile-nav");
     if (menu) menu.hidden = true;
     const toggle = document.querySelector(".menu-toggle");
@@ -65,7 +67,7 @@ export function ProjectGallery() {
     const handleLaunch = (event: Event) => {
       if (event instanceof KeyboardEvent && event.key !== "Enter" && event.key !== " ") return;
       event.preventDefault();
-      launch(event.currentTarget instanceof HTMLElement ? event.currentTarget : null);
+      launch(event.currentTarget instanceof HTMLElement ? event.currentTarget : null, event instanceof KeyboardEvent);
     };
     elements.forEach(element => {
       element.setAttribute("role", "button");
@@ -102,10 +104,10 @@ export function ProjectGallery() {
   if (!photo) return null;
   return <>
     {navHosts.map((host, key) => createPortal(
-      <Button variant="ghost" className="portfolio-nav-button" aria-haspopup="dialog" onClick={event => launch(event.currentTarget)}>Portfólio</Button>, host, String(key)
+      <Button variant="ghost" className="portfolio-nav-button" aria-haspopup="dialog" onClick={event => launch(event.currentTarget, event.detail === 0)}>Portfólio</Button>, host, String(key)
     ))}
     <dialog ref={dialog} className="project-gallery" aria-labelledby="gallery-title"
-      onClose={() => { setOpen(false); trigger.current?.focus({ preventScroll: true }); }}
+      onClose={() => { setOpen(false); if (restoreFocus.current) trigger.current?.focus({ preventScroll: true }); }}
       onClick={event => { if (event.target === event.currentTarget) dialog.current?.close(); }}
       onKeyDown={event => {
         if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
