@@ -81,7 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "DRG Arquitetura" },
-      { name: "description", content: "Projetos de interiores e arquitetura residencial com Douglas Gerst em Itajaí e região." },
+      { name: "description", content: "Arquiteto em Itajaí e região: projetos de interiores e arquitetura residencial com Douglas Gerst." },
       { name: "author", content: "DRG Arquitetura" },
       { property: "og:title", content: "DRG Arquitetura" },
       { property: "og:description", content: "Projetos de interiores e arquitetura residencial em Itajaí e região." },
