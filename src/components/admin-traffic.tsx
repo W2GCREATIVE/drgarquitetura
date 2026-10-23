@@ -40,7 +40,7 @@ export function AdminTraffic() {
       wa: count("clique_whatsapp"),
       visits,
       leads,
-      rate: visits ? Math.round((leads / visits) * 1000) / 10 : 0,
+      rate: visits && leads <= visits ? Math.round((leads / visits) * 1000) / 10 : null,
       days,
       max: Math.max(1, ...days.map((d) => d.visits)),
     };
@@ -56,7 +56,7 @@ export function AdminTraffic() {
       <div className="a-stats">
         <div className="a-stat"><span>Visitas</span><strong>{view.visits}</strong><em>últimos 30 dias</em></div>
         <div className="a-stat"><span>Contatos</span><strong>{view.leads}</strong><em>deixados no site</em></div>
-        <div className="a-stat"><span>Conversão</span><strong>{view.rate}%</strong><em>das visitas viram contato</em></div>
+        <div className="a-stat"><span>Conversão</span><strong>{view.rate === null ? "—" : `${view.rate}%`}</strong><em>das visitas viram contato</em></div>
         <div className="a-stat"><span>Cliques no WhatsApp</span><strong>{view.wa}</strong><em>botões do site</em></div>
       </div>
 
