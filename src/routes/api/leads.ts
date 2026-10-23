@@ -23,6 +23,8 @@ export const Route = createFileRoute("/api/leads")({
           return json(400, { ok: false, error: (e as Error).message });
         }
         const d = parsed.data;
+        // Honeypot: robôs preenchem o campo invisível "company"; fingimos sucesso sem salvar.
+        if (d.company) return json(201, { ok: true, id: "descartado", estimate });
         const { deliverFromVercel } = await import("@/lib/drg-delivery.server");
         const delivered = await deliverFromVercel("/api/leads", { ...d, project: estimate.input });
         if (delivered) return delivered;
