@@ -15,6 +15,13 @@
       "when": 1792753196479,
       "tag": "0001_create_user_roles",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792757134101,
+      "tag": "0002_admin_read_leads_and_traffic",
+      "breakpoints": true
     }
   ]
 }

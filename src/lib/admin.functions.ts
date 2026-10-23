@@ -12,8 +12,7 @@ export const listLeads = createServerFn({ method: "GET" })
     if (roleError || !isAdmin) {
       throw new Error("Forbidden");
     }
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await context.supabase
       .from("leads")
       .select("id, created_at, name, phone, email, moment, privacy_version, project, estimate, source")
       .order("created_at", { ascending: false })
@@ -35,9 +34,8 @@ export const listTraffic = createServerFn({ method: "GET" })
     if (roleError || !isAdmin) {
       throw new Error("Forbidden");
     }
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const since = new Date(Date.now() - 30 * 864e5).toISOString();
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await context.supabase
       .from("funnel_events")
       .select("name, created_at")
       .gte("created_at", since)
