@@ -5,4 +5,3 @@
 - [ ] Source request-rate limits: blocked by unavailable platform support.
 - [x] Improve gallery presentation, captions, cover invitations and direct Portfólio navigation; verify desktop and mobile.
 - [x] Admin panel: /auth login, /admin leads list, user_roles + has_role, protected server function.
-- [ ] Grant admin role to Douglas — blocked: he must sign up at /auth and confirm the email first.
