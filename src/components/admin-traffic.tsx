@@ -1,8 +1,7 @@
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
 
-import { listTraffic } from "@/lib/admin.functions";
+import { listTraffic } from "@/lib/admin-data";
 import { adminRefreshOptions } from "@/lib/admin-refresh";
 
 const STEPS: { key: string; label: string; hint: string }[] = [
@@ -17,8 +16,7 @@ function dayKey(d: Date) {
 }
 
 export function AdminTraffic() {
-  const fetchTraffic = useServerFn(listTraffic);
-  const { data, error, isPending } = useQuery({ queryKey: ["admin-traffic"], queryFn: () => fetchTraffic(), retry: false, ...adminRefreshOptions });
+  const { data, error, isPending } = useQuery({ queryKey: ["admin-traffic"], queryFn: () => listTraffic(), retry: false, ...adminRefreshOptions });
 
   const view = useMemo(() => {
     const events = data ?? [];
