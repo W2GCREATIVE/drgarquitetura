@@ -28,11 +28,9 @@ export const Route = createFileRoute("/auth")({
 function AuthPage() {
   const { redirect } = Route.useSearch();
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -45,28 +43,15 @@ function AuthPage() {
     event.preventDefault();
     setBusy(true);
     setError(null);
-    setMessage(null);
     try {
-      if (mode === "signin") {
-        const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
-        if (signInError) {
-          setError("E-mail ou senha incorretos.");
-          return;
-        }
-        navigate({ to: redirect, replace: true });
-      } else {
-        const { error: signUpError } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo: window.location.origin },
-        });
-        if (signUpError) {
-          setError("Não foi possível criar a conta. Confira os dados e tente novamente.");
-          return;
-        }
-        setMessage("Conta criada. Confirme o e-mail que acabamos de enviar e depois entre aqui.");
-        setMode("signin");
+      const login = email.trim().toLowerCase();
+      const loginEmail = login.includes("@") ? login : `${login}@drgarquitetura.com.br`;
+      const { error: signInError } = await supabase.auth.signInWithPassword({ email: loginEmail, password });
+      if (signInError) {
+        setError("Usuário ou senha incorretos.");
+        return;
       }
+      navigate({ to: redirect, replace: true });
     } finally {
       setBusy(false);
     }
@@ -81,13 +66,13 @@ function AuthPage() {
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
             <label htmlFor="auth-email" className="text-sm font-medium text-foreground">
-              E-mail
+              Usuário
             </label>
             <input
               id="auth-email"
-              type="email"
+              type="text"
               required
-              autoComplete="email"
+              autoComplete="username"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground"
@@ -102,33 +87,21 @@ function AuthPage() {
               type="password"
               required
               minLength={6}
-              autoComplete={mode === "signin" ? "current-password" : "new-password"}
+              autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground"
             />
           </div>
           {error ? <p className="text-sm text-destructive">{error}</p> : null}
-          {message ? <p className="text-sm text-foreground">{message}</p> : null}
           <button
             type="submit"
             disabled={busy}
             className="w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-60"
           >
-            {busy ? "Aguarde…" : mode === "signin" ? "Entrar" : "Criar conta"}
+            {busy ? "Aguarde…" : "Entrar"}
           </button>
         </form>
-        <button
-          type="button"
-          onClick={() => {
-            setMode(mode === "signin" ? "signup" : "signin");
-            setError(null);
-            setMessage(null);
-          }}
-          className="mt-4 w-full text-center text-sm text-muted-foreground underline-offset-4 hover:underline"
-        >
-          {mode === "signin" ? "Primeiro acesso? Criar conta" : "Já tenho conta — entrar"}
-        </button>
       </div>
     </div>
   );
