@@ -15,4 +15,5 @@ export const contactSchema = z.object({
   privacyVersion: z.literal(config.privacyVersion),
   project: z.unknown(),
   source: z.object(Object.fromEntries(["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "partner_code"].map(key => [key, text(150).optional()]))).optional(),
+  company: z.string().max(200).optional(),
 });

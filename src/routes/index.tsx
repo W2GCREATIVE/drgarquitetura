@@ -7,9 +7,34 @@ import configJs from "../drg-legacy/config.js?raw";
 import calculatorJs from "../drg-legacy/calculator.js?raw";
 import appJs from "../drg-legacy/app.js?raw";
 
-const title = "Arquitetura de interiores em Itajaí e região | DRG Arquitetura";
+const title = "Arquiteto em Itajaí e Balneário Camboriú | DRG Arquitetura";
 const description =
-  "Projetos de interiores para apartamentos, arquitetura residencial e reformas em Itajaí, Camboriú e Balneário Camboriú. Converse com o arquiteto Douglas Gerst.";
+  "Arquiteto em Itajaí, Camboriú e Balneário Camboriú: projetos de interiores para apartamentos, arquitetura residencial e reformas. Converse com o arquiteto Douglas Gerst.";
+const siteUrl = "https://drgarquitetura.com.br/";
+const shareImage = "https://drgarquitetura.com.br/media/og-image.jpg";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "DRG Arquitetura",
+  url: siteUrl,
+  telephone: "+55-47-98818-8417",
+  image: shareImage,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "R. Edmundo Souza Cunha",
+    addressLocality: "Itajaí",
+    addressRegion: "SC",
+    postalCode: "88302-265",
+    addressCountry: "BR",
+  },
+  areaServed: ["Itajaí", "Balneário Camboriú", "Camboriú"],
+  founder: { "@type": "Person", name: "Douglas Roberto Gerst", jobTitle: "Arquiteto e Urbanista" },
+  sameAs: [
+    "https://www.instagram.com/douglasgerstarquiteto/",
+    "https://www.facebook.com/douglasgerstarquiteto",
+  ],
+};
 
 export const Route = createFileRoute("/")({
   staticData: { sitemap: true },
@@ -22,8 +47,13 @@ export const Route = createFileRoute("/")({
       { property: "og:locale", content: "pt_BR" },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+      { property: "og:url", content: siteUrl },
+      { property: "og:image", content: shareImage },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: shareImage },
     ],
+    links: [{ rel: "canonical", href: siteUrl }],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify(structuredData) }],
   }),
   component: Index,
 });

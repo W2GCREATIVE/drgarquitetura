@@ -2795,3 +2795,19 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
     display:none
   }
 }
+
+/* Campo-armadilha contra spam: invisível para pessoas, preenchido por robôs. */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Espaço para o botão flutuante do WhatsApp não cobrir o rodapé no computador. */
+@media (min-width: 951px) {
+  .site-footer .footer-bottom {
+    padding-bottom: 110px;
+  }
+}

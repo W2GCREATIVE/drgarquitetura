@@ -133,7 +133,7 @@
     if(!/^\d{10,11}$/.test(phone) || !/^[1-9]{2}/.test(phone)){$('#client-phone').setAttribute('aria-invalid','true');$('#client-phone').focus();throw new Error('Informe um WhatsApp com DDD e 10 ou 11 dígitos.');}
     if(email && !$('#client-email').checkValidity()){$('#client-email').setAttribute('aria-invalid','true');$('#client-email').focus();throw new Error('Confira o e-mail informado.');}
     if(!$('#contact-consent').checked){$('#contact-consent').focus();throw new Error('Autorize o uso dos dados para o retorno sobre seu projeto.');}
-    return {name,phone,email,moment,consent:true,privacyVersion:config.privacyVersion,project:{...currentEstimate.input},source:source()};
+    return {name,phone,email,moment,consent:true,privacyVersion:config.privacyVersion,project:{...currentEstimate.input},source:source(),company:$('#client-company')?.value||''};
   }
   function buildMessage(contact,estimate) {
     const lines=[`Olá, ${config.architect}! Sou ${contact.name} e vim pelo site da ${config.brand}.`,'',`Meu WhatsApp: ${maskPhone(contact.phone)}`,`E-mail: ${contact.email||'não informado'}`,`Momento: ${{ja_tenho:'já tenho o imóvel',vou_comprar:'vou comprar',pesquisando:'só pesquisando'}[contact.moment]||'não informado'}`,'',`Tipo: ${config.types[estimate.input.type]}`,`Cidade: ${estimate.input.city}`,`Área: ${estimate.input.area.toLocaleString('pt-BR')} m²`,`Padrão: ${config.standards[estimate.input.standard]}`,'',`Projeto com a DRG: ${range(estimate.project)}`,`Acompanhamento de obra: ${estimate.input.management?range(estimate.management):`não selecionado; referência a partir de ${format(estimate.managementReference[0])}`}`,`Referência de obra por terceiros: ${range(estimate.work)}`];

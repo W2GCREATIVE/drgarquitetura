@@ -9,3 +9,8 @@
 - [x] Verify Vercel contact delivery through the existing published Cloud and admin readback; test event forwarding and remove the temporary verification lead.
 - [ ] Verify the updated public Vercel deployment after GitHub synchronization (requires the owner's Vercel deployment).
 - [x] Verify admin-only contact/traffic reads without a service key and automatic new-contact appearance; preserve the real recent submissions.
+- [x] Apply the external site review: SEO title/canonical/JSON-LD/og-image, WebP images, Portfólio nav button parity, footer clearance for the floating WhatsApp, security headers, calculator honeypot.
+- [ ] CAU number in footer and "O arquiteto" (waiting on Douglas).
+- [ ] Real Google reviews section (waiting on Douglas's authorization and review texts).
+- [ ] Google Search Console verification + sitemap submission (needs the owner's Google account).
+- [ ] 301 from drgarquitetura.lovable.app to drgarquitetura.com.br (hosting-level, not in the repo).

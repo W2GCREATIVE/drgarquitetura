@@ -14,8 +14,17 @@
 .drg-site .portfolio-nav-button {
   padding: 0; height: auto; border: 0; border-radius: 0; background: transparent;
   color: var(--ink); font-family: var(--body); font-size: 13px; font-weight: 500;
+  position: relative; white-space: nowrap; box-shadow: none; letter-spacing: 0;
+  text-transform: none; line-height: inherit; cursor: pointer;
+}
+.drg-site .portfolio-nav-button::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -7px; height: 1px;
+  background: var(--gold-dark); transform: scaleX(0); transform-origin: left; transition: transform .25s;
 }
 .drg-site .portfolio-nav-button:hover { color: var(--gold-dark); background: transparent; }
+.drg-site .portfolio-nav-button:hover::after { transform: scaleX(1); }
+.drg-site .portfolio-nav-button:focus-visible { outline: 2px solid var(--gold-dark); outline-offset: 4px; box-shadow: none; }
+.drg-site .mobile-nav .portfolio-nav-button::after { content: none; }
 .mobile-nav [data-portfolio-nav] { display: block; }
 .drg-site .mobile-nav .portfolio-nav-button {
   display: block; text-align: left; width: 100%; padding: 13px 0;

@@ -2,21 +2,21 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ChevronLeft, ChevronRight, LoaderCircle, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-const mh1 = { url: "/media/MH1.jpg" };
-const mh2 = { url: "/media/MH2.jpg" };
-const mh3 = { url: "/media/MH3.jpg" };
-const mh4 = { url: "/media/MH4.jpg" };
-const mh5 = { url: "/media/MH5.jpg" };
-const rbc2 = { url: "/media/RBC2.jpg" };
-const rbc3 = { url: "/media/RBC3.png" };
-const rbc4 = { url: "/media/RBC4.jpg" };
-const aereaCaledonia1 = { url: "/media/Aerea_caledonia_1.jpg" };
-const aereaCaledonia2 = { url: "/media/Aerea_2_caledonia_1.jpg" };
-const ilhaBela = { url: "/media/IB.jpg" };
-const ilhaBelaAntes = { url: "/media/IB_antes.jpg" };
-const ilhaBelaDepois = { url: "/media/IB_depois.jpg" };
-const fachadaBs = { url: "/media/Fachada_BS.jpg" };
-const fachadaParigi = { url: "/media/fachada_para_predio_-_Parigi.jpg" };
+const mh1 = { url: "/media/MH1.webp" };
+const mh2 = { url: "/media/MH2.webp" };
+const mh3 = { url: "/media/MH3.webp" };
+const mh4 = { url: "/media/MH4.webp" };
+const mh5 = { url: "/media/MH5.webp" };
+const rbc2 = { url: "/media/RBC2.webp" };
+const rbc3 = { url: "/media/RBC3.webp" };
+const rbc4 = { url: "/media/RBC4.webp" };
+const aereaCaledonia1 = { url: "/media/Aerea_caledonia_1.webp" };
+const aereaCaledonia2 = { url: "/media/Aerea_2_caledonia_1.webp" };
+const ilhaBela = { url: "/media/IB.webp" };
+const ilhaBelaAntes = { url: "/media/IB_antes.webp" };
+const ilhaBelaDepois = { url: "/media/IB_depois.webp" };
+const fachadaBs = { url: "/media/Fachada_BS.webp" };
+const fachadaParigi = { url: "/media/fachada_para_predio_-_Parigi.webp" };
 import "./project-gallery.css";
 
 const photos = [
@@ -40,6 +40,7 @@ const photos = [
 export function ProjectGallery() {
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLElement | null>(null);
+  const restoreFocus = useRef(false);
   const thumbnails = useRef<HTMLDivElement>(null);
   const touchStart = useRef<number | null>(null);
   const [navHosts, setNavHosts] = useState<HTMLElement[]>([]);
@@ -47,8 +48,9 @@ export function ProjectGallery() {
   const [open, setOpen] = useState(false);
   const [loadedUrl, setLoadedUrl] = useState("");
   const move = (direction: number) => setIndex(value => (value + direction + photos.length) % photos.length);
-  const launch = useCallback((element: HTMLElement | null) => {
+  const launch = useCallback((element: HTMLElement | null, keyboard = false) => {
     trigger.current = element;
+    restoreFocus.current = keyboard;
     const menu = document.getElementById("mobile-nav");
     if (menu) menu.hidden = true;
     const toggle = document.querySelector(".menu-toggle");
@@ -65,7 +67,7 @@ export function ProjectGallery() {
     const handleLaunch = (event: Event) => {
       if (event instanceof KeyboardEvent && event.key !== "Enter" && event.key !== " ") return;
       event.preventDefault();
-      launch(event.currentTarget instanceof HTMLElement ? event.currentTarget : null);
+      launch(event.currentTarget instanceof HTMLElement ? event.currentTarget : null, event instanceof KeyboardEvent);
     };
     elements.forEach(element => {
       element.setAttribute("role", "button");
@@ -102,10 +104,10 @@ export function ProjectGallery() {
   if (!photo) return null;
   return <>
     {navHosts.map((host, key) => createPortal(
-      <Button variant="ghost" className="portfolio-nav-button" aria-haspopup="dialog" onClick={event => launch(event.currentTarget)}>Portfólio</Button>, host, String(key)
+      <Button variant="ghost" className="portfolio-nav-button" aria-haspopup="dialog" onClick={event => launch(event.currentTarget, event.detail === 0)}>Portfólio</Button>, host, String(key)
     ))}
     <dialog ref={dialog} className="project-gallery" aria-labelledby="gallery-title"
-      onClose={() => { setOpen(false); trigger.current?.focus({ preventScroll: true }); }}
+      onClose={() => { setOpen(false); if (restoreFocus.current) trigger.current?.focus({ preventScroll: true }); }}
       onClick={event => { if (event.target === event.currentTarget) dialog.current?.close(); }}
       onKeyDown={event => {
         if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
