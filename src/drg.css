@@ -2811,9 +2811,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
     padding-bottom: 110px;
   }
 }
-.reviews-section{background:#eeece7}
+.reviews-section{background-color:var(--forest-dark);background-image:linear-gradient(#ffffff07 1px,transparent 1px),linear-gradient(90deg,#ffffff07 1px,transparent 1px);background-size:80px 80px;color:#f3f1ec}
+.reviews-section .eyebrow{color:var(--gold)}
 .reviews-section .section-heading{justify-content:center;text-align:center;margin-bottom:0}
-.reviews-section .section-heading>div{margin:0 auto}
 .reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:40px}
 .review-card{margin:0;padding:32px;border:1px solid rgba(0,0,0,.08);background:#fff;display:flex;flex-direction:column;gap:16px}
 .review-stars{color:var(--gold-dark,#a8843f);letter-spacing:3px;font-size:18px}
